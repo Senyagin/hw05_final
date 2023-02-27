@@ -1,6 +1,5 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
 
 from .forms import PostForm, CommentForm, Comment
 from .models import Group, Post, User, Follow
@@ -101,6 +100,7 @@ def post_edit(request, post_id):
         'is_edit': is_edit,
     }
     return render(request, 'posts/create_post.html', context)
+
 
 @login_required
 def follow_index(request):

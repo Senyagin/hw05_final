@@ -8,8 +8,9 @@ from .const_for_test import (
     TEST_SLUG, TEST_DESCRIPTION, TEST_TEXT, DETAIL_ROUTE, LOGIN_ROUTE,
     INDEX_ROUTE, USERNAME_ROUTE, EDIT_ROUTE, POST_CREATE_ROUTE,
     INDEX_TEMPLATE, GROUP_TEMPLATE, USERNAME_TEMPLATE,
-    POST_DETAIL_TEMPLATE, POST_EDIT_TEMPLATE, POST_CREATE_TEMPLATE, UNKNOWN_URL,
-    COMMENT_ROUTE, FOLLOW_ROUTE, PROFILE_FOLLOW_ROUTE, FOLLOW_TEMPLATE, UNKNOWN_TEMPLATE
+    POST_DETAIL_TEMPLATE, POST_EDIT_TEMPLATE, POST_CREATE_TEMPLATE,
+    UNKNOWN_URL, COMMENT_ROUTE, FOLLOW_ROUTE, PROFILE_FOLLOW_ROUTE,
+    FOLLOW_TEMPLATE, UNKNOWN_TEMPLATE
 )
 
 
@@ -17,6 +18,7 @@ INDEX_URL = reverse(INDEX_ROUTE)
 POST_CREATE_URL = reverse(POST_CREATE_ROUTE)
 LOGIN_URL = reverse(LOGIN_ROUTE)
 FOLLOW_URL = reverse(FOLLOW_ROUTE)
+
 
 class StaticURLTests(TestCase):
     @classmethod
@@ -113,6 +115,7 @@ class StaticURLTests(TestCase):
             'внезапно стала доступна страница unknown'
         )
         self.assertTemplateUsed(response, UNKNOWN_TEMPLATE)
+
     def test_access_for_autorized(self):
         """Доступ авторизированного пользователя к страницам"""
         response = self.authorized_client.get(POST_CREATE_URL)
@@ -145,7 +148,10 @@ class StaticURLTests(TestCase):
 
     def test_add_comment_by_authorized_client(self):
         """Добавление комментария доступно авторизованному пользователю ."""
-        response = self.authorized_second_client.get(self.COMMENT_URL, follow=True)
+        response = self.authorized_second_client.get(
+            self.COMMENT_URL,
+            follow=True
+        )
         self.assertEqual(response.status_code, HTTPStatus.OK)
         self.assertRedirects(response, self.DETAIL_URL)
 

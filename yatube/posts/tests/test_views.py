@@ -34,7 +34,7 @@ class PostsViewsTest(TestCase):
             slug=TEST_SLUG,
             description=TEST_DESCRIPTION,
         )
-        
+
         cls.small_gif = TEST_GIF
         cls.uploaded = SimpleUploadedFile(
             name='small.gif',
@@ -159,6 +159,7 @@ class PostsViewsTest(TestCase):
         cache.clear()
         response_3 = self.guest_client.get(INDEX_URL)
         self.assertNotEqual(response_1.content, response_3.content)
+
 
 class PaginatorViewsTest(TestCase):
     @classmethod

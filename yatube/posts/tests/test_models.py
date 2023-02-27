@@ -28,8 +28,8 @@ class PostModelTest(TestCase):
             text=TEST_ANOTHER_TEXT
         )
         cls.follow = Follow.objects.create(
-            user = cls.second_user,
-            author = cls.user,
+            user=cls.second_user,
+            author=cls.user,
         )
         cls.object_names = [
             (PostModelTest.post, str('text')[:SLICE_TEXT]),
@@ -44,8 +44,8 @@ class PostModelTest(TestCase):
                 expected_object_name = getattr(object_name, field_name)
                 self.assertEqual(expected_object_name, str(object_name))
 
-    def test_models_have_correct_objects_names_group(self): 
-        """Проверяем, что у моделей корректно работает __str__.""" 
-        follow = PostModelTest.follow 
+    def test_models_have_correct_objects_names_group(self):
+        """Проверяем, что у моделей корректно работает __str__."""
+        follow = PostModelTest.follow
         expected_object_name = follow.user.username
-        self.assertEqual(expected_object_name, str(follow)) 
+        self.assertEqual(expected_object_name, str(follow))

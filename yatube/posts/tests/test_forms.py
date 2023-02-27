@@ -191,7 +191,7 @@ class PostCreateFormTests(TestCase):
         )
         self.assertRedirects(response, self.DETAIL_URL)
         self.assertEqual(Comment.objects.count(), comments_count + 1)
-    
+
     def test_add_comment_by_not_authorized_client(self):
         """Неавторизованный пользователь не может создать комментарий,
         происходит редирект на страницу авторизации."""
