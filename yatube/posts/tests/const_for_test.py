@@ -1,0 +1,50 @@
+from posts.utils import POSTS_COUNT
+
+
+TEST_AUTHOR = 'smekta'
+ANOTHER_AUTHOR = 'smakta'
+
+TEXT = 'text'
+GROUP = 'group'
+IMAGE = 'image'
+POST = 'post'
+TITLE = 'Тестовая группа'
+TEST_GROUP = 'Тестовая группа'
+TEST_SLUG = 'test-slug'
+TEST_TEXT = 'Тестовый текст'
+TEST_DESCRIPTION = 'Тестовое описание'
+TEST_ANOTHER_SLUG = 'yag-slug'
+TEST_ANOTHER_DESCRIPTION = 'Еще одно описание'
+TEST_ANOTHER_GROUP = 'Еще одна группа'
+TEST_ANOTHER_TEXT = 'Ещё один тестовый текст'
+POSTS_COUNT_LEFT = POSTS_COUNT - 7
+TEST_GIF = (
+    b'\x47\x49\x46\x38\x39\x61\x02\x00'
+    b'\x01\x00\x80\x00\x00\x00\x00\x00'
+    b'\xFF\xFF\xFF\x21\xF9\x04\x00\x00'
+    b'\x00\x00\x00\x2C\x00\x00\x00\x00'
+    b'\x02\x00\x01\x00\x00\x02\x02\x0C'
+    b'\x0A\x00\x3B'
+)
+
+INDEX_ROUTE = 'posts:index'
+USERNAME_ROUTE = 'posts:profile'
+DETAIL_ROUTE = 'posts:post_detail'
+EDIT_ROUTE = 'posts:post_edit'
+POST_CREATE_ROUTE = 'posts:post_create'
+LOGIN_ROUTE = 'users:login'
+GROUP_LIST_ROUTE = 'posts:group_list'
+COMMENT_ROUTE = 'posts:add_comment'
+FOLLOW_ROUTE = 'posts:follow_index'
+PROFILE_FOLLOW_ROUTE = 'posts:profile_follow'
+CREATE_REDIRECT_URL = '/auth/login/?next=/create/'
+UNKNOWN_URL = '/unknown/'
+
+INDEX_TEMPLATE = 'posts/index.html'
+GROUP_TEMPLATE = 'posts/group_list.html'
+USERNAME_TEMPLATE = 'posts/profile.html'
+POST_DETAIL_TEMPLATE = 'posts/post_detail.html'
+POST_EDIT_TEMPLATE = 'posts/create_post.html'
+POST_CREATE_TEMPLATE = 'posts/create_post.html'
+FOLLOW_TEMPLATE = 'posts/follow.html'
+UNKNOWN_TEMPLATE = 'core/404.html'
