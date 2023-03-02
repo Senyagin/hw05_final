@@ -67,7 +67,7 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created']
-        verbose_name = 'Комментарий'    
+        verbose_name = 'Комментарий'
 
 
 class Follow(models.Model):

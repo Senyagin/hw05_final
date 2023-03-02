@@ -17,7 +17,6 @@ TEST_ANOTHER_SLUG = 'yag-slug'
 TEST_ANOTHER_DESCRIPTION = 'Еще одно описание'
 TEST_ANOTHER_GROUP = 'Еще одна группа'
 TEST_ANOTHER_TEXT = 'Ещё один текст'
-TEST_FOLLOW_AUTHOR =''
 POSTS_COUNT_LEFT = POSTS_COUNT - 7
 TEST_GIF = (
     b'\x47\x49\x46\x38\x39\x61\x02\x00'
