@@ -63,7 +63,11 @@ class Comment(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self) -> str:
-        return self.text
+        return self.text[:SLICE_TEXT]
+
+    class Meta:
+        ordering = ['-created']
+        verbose_name = 'Комментарий'    
 
 
 class Follow(models.Model):
@@ -82,3 +86,10 @@ class Follow(models.Model):
 
     def __str__(self) -> str:
         return self.user.username
+
+    constraints = [
+        models.UniqueConstraint(
+            fields=['user', 'author'],
+            name='unique_following'
+        )
+    ]

@@ -5,7 +5,8 @@
 {% endblock title %}
 {% block content %}
 {% cache 20 index_page page_obj %}
-{% include 'includes/switcher.html' %}
+  <div class="container py-5">
+{% include 'includes/switcher.html' with index=True %}
     {% for post in page_obj %}
       <div class="container py-5">
         <h1> Последние обновления на сайте </h1>
@@ -13,6 +14,7 @@
           {% include 'includes/article.html' with link_group=True link_author=True %}
         </article>
       </div>
+  </div>
    {% endfor %}
   {% endcache %} 
    {% include 'includes/paginator.html' %} 

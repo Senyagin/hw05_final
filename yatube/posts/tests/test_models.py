@@ -34,7 +34,7 @@ class PostModelTest(TestCase):
         cls.object_names = [
             (PostModelTest.post, str('text')[:SLICE_TEXT]),
             (PostModelTest.group, ('title')),
-            (PostModelTest.comment, ('text')),
+            (PostModelTest.comment, ('text')[:SLICE_TEXT]),
         ]
 
     def test_models_have_correct_object_names_post_group(self):
