@@ -218,8 +218,7 @@ class PaginatorViewsTest(TestCase):
                     self.assertEqual(len(
                         response.context['page_obj']), page
                     )
-
-        
+      
 
 class FollowTests(TestCase):
 
@@ -262,7 +261,7 @@ class FollowTests(TestCase):
             user=FollowTests.user, author=author_user).count()
         self.authorized_client.get(
             reverse(
-                UNFOLLOW_ROUTE, 
+                UNFOLLOW_ROUTE,
                 args=(author_user.username,)
             )
         )

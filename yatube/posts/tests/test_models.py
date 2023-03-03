@@ -48,4 +48,7 @@ class PostModelTest(TestCase):
         follow = PostModelTest.follow
         expected_user = follow.user.username
         expected_author = follow.author.username
-        self.assertEqual(f'{expected_user} подписан на {expected_author}', str(follow))
+        self.assertEqual(
+            f'{expected_user} подписан на {expected_author}',
+            str(follow)
+        )
