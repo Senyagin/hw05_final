@@ -7,9 +7,7 @@
     <h1>Подписки пользователя '{{ user.username }}'</h1>
   {% include 'includes/switcher.html' with follow=True %}
   {% for post in page_obj %}
-  <article>
     {% include 'includes/article.html' with link_group=True link_author=True %}
-  </article>
   {% endfor %} 
 
   {% include "includes/paginator.html" %} 

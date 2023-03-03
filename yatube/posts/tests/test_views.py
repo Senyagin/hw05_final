@@ -13,7 +13,7 @@ from .const_for_test import (
     TEST_AUTHOR, TEST_GROUP, TEST_SLUG, TEST_DESCRIPTION, TEST_TEXT,
     POSTS_COUNT, INDEX_ROUTE, USERNAME_ROUTE, EDIT_ROUTE, DETAIL_ROUTE,
     GROUP_LIST_ROUTE, POST_CREATE_ROUTE, TEST_GIF, PROFILE_FOLLOW_ROUTE,
-    ANOTHER_AUTHOR, FOLLOW_ROUTE
+    ANOTHER_AUTHOR, FOLLOW_ROUTE, UNFOLLOW_ROUTE
 )
 
 
@@ -165,7 +165,7 @@ class PaginatorViewsTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.user = User.objects.create_user(username='Test_user')
+        cls.user = User.objects.create_user(username=TEST_AUTHOR)
         cls.authorized_client = Client()
         cls.authorized_client.force_login(cls.user)
         cls.group = Group.objects.create(
@@ -197,22 +197,29 @@ class PaginatorViewsTest(TestCase):
 
     def test_context_with_paginator(self):
         """Тест контекст с Paginator."""
-        pages_names = {
-            self.INDEX_URL: POSTS_COUNT,
-            self.INDEX_URL + '?page=2': self.second_page,
-            self.GROUP_LIST_URL: POSTS_COUNT,
-            self.GROUP_LIST_URL + '?page=2': self.second_page,
-            self.USERNAME_URL: POSTS_COUNT,
-            self.USERNAME_URL + '?page=2': self.second_page,
+        first_page_posts = POSTS_COUNT
+        total_posts = Post.objects.count()
+        second_page_posts = total_posts - first_page_posts
+        test_addresses = [
+            INDEX_URL,
+            self.GROUP_LIST_URL,
+            self.USERNAME_URL
+        ]
+        page_numbers = {
+            1: first_page_posts,
+            2: second_page_posts
         }
+        for address in test_addresses:
+            with self.subTest(address=address):
+                for page_number, page in page_numbers.items():
+                    response = self.client.get(
+                        address, {'page': page_number}
+                    )
+                    self.assertEqual(len(
+                        response.context['page_obj']), page
+                    )
 
-        for page_name, page_number in pages_names.items():
-            with self.subTest(page_name=page_name):
-                response = self.authorized_client.get(page_name)
-                self.assertEqual(
-                    len(response.context['page_obj']), page_number
-                )
-
+        
 
 class FollowTests(TestCase):
 
@@ -233,7 +240,7 @@ class FollowTests(TestCase):
     def test_follow(self):
         """Авторизованный пользователь может подписаться
         на других пользователей."""
-        author_user = User.objects.create_user(username='author_user')
+        author_user = User.objects.create_user(username=ANOTHER_AUTHOR)
         test_count_1 = Follow.objects.filter(
             user=FollowTests.user, author=author_user).count()
         self.authorized_client.get(
@@ -249,14 +256,16 @@ class FollowTests(TestCase):
     def test_unfollow(self):
         """Авторизованный пользователь может
         отписаться от других пользователей."""
-        author_user = User.objects.create_user(username='author_user')
+        author_user = User.objects.create_user(username=ANOTHER_AUTHOR)
         Follow.objects.create(user=FollowTests.user, author=author_user)
         test_count_1 = Follow.objects.filter(
             user=FollowTests.user, author=author_user).count()
         self.authorized_client.get(
             reverse(
-                'posts:profile_unfollow', args=(
-                    author_user.username,)))
+                UNFOLLOW_ROUTE, 
+                args=(author_user.username,)
+            )
+        )
         test_count_2 = Follow.objects.filter(
             user=FollowTests.user, author=author_user).count()
         self.assertEqual(test_count_1 - 1, test_count_2)

@@ -1,4 +1,5 @@
 {% load thumbnail %}
+<article>
     <ul>
       <li>
         Автор: {{ post.author.get_full_name }}
@@ -27,3 +28,4 @@
   {% if not forloop.last %} 
     <hr>
   {% endif %}
+</article>

@@ -8,9 +8,7 @@
 <h2><p>{{group.description}}</p></h2>
 {% for post in page_obj %}
       <div class="container py-5">
-        <article>
             {% include 'includes/article.html' with link_author=True %}
-        </article>
       </div>
 {% endfor %}
 {% include 'includes/paginator.html' %}

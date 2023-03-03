@@ -31,21 +31,21 @@ class PostModelTest(TestCase):
             user=cls.second_user,
             author=cls.user,
         )
-        cls.object_names = [
-            (PostModelTest.post, str('text')[:SLICE_TEXT]),
-            (PostModelTest.group, ('title')),
-            (PostModelTest.comment, ('text')[:SLICE_TEXT]),
-        ]
+        cls.object_names = {
+            PostModelTest.post: PostModelTest.post.text[:SLICE_TEXT],
+            PostModelTest.group: PostModelTest.group.title,
+            PostModelTest.comment: PostModelTest.comment.text[:SLICE_TEXT],
+        }
 
     def test_models_have_correct_object_names_post_group(self):
         """Проверяем, что у моделей корректно работает __str__."""
-        for object_name, field_name in self.object_names:
+        for object_name, field_name in self.object_names.items():
             with self.subTest(object_name=object_name):
-                expected_object_name = getattr(object_name, field_name)
-                self.assertEqual(expected_object_name, str(object_name))
+                self.assertEqual(str(object_name), field_name)
 
     def test_models_have_correct_objects_names_group(self):
         """Проверяем, что у моделей корректно работает __str__."""
         follow = PostModelTest.follow
-        expected_object_name = follow.user.username
-        self.assertEqual(expected_object_name, str(follow))
+        expected_user = follow.user.username
+        expected_author = follow.author.username
+        self.assertEqual(f'{expected_user} подписан на {expected_author}', str(follow))

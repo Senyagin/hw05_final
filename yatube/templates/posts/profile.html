@@ -16,12 +16,7 @@
     {% endif %}
   {% endif%}
         {% for post in page_obj %}   
-        <article>
-          {% include 'includes/article.html' %}
-        </article>  
-        {%if post.group %}     
-        <a href="{% url 'posts:group_list' post.group.slug %}">все записи группы</a>
-        {% endif %}  
+          {% include 'includes/article.html' with link_group=True %}   
         {% if not forloop.last %}<hr>{% endif %} 
         {% endfor %}
         {% include 'includes/paginator.html' %}
