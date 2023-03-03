@@ -218,7 +218,7 @@ class PaginatorViewsTest(TestCase):
                     self.assertEqual(len(
                         response.context['page_obj']), page
                     )
-      
+
 
 class FollowTests(TestCase):
 
